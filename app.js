@@ -67,14 +67,21 @@ function logout() {
 // Send message function
 function sendMessage() {
     const message = document.getElementById('message').value;
-    if (message) {
+    const username = localStorage.getItem('username'); // Get the current logged-in username
+
+    if (message && username) {
         const messagesDiv = document.getElementById('messages');
         const messageDiv = document.createElement('div');
-        messageDiv.textContent = `${localStorage.getItem('username')}: ${message}`;
+        
+        // Add sender's username and message content
+        messageDiv.innerHTML = `<strong>${username}</strong>: ${message}`;
         messagesDiv.appendChild(messageDiv);
+        
         document.getElementById('message').value = ''; // Clear the input after sending
+        messagesDiv.scrollTop = messagesDiv.scrollHeight; // Scroll to the bottom
     }
 }
+
 
 // Initialize the login state on page load
 checkLogin();
